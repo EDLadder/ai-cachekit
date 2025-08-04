@@ -1,6 +1,6 @@
 # AI CacheKit
 
-[![Tests](https://github.com/EDLadder/ai-cachekit/actions/workflows/python-tests.yml/badge.svg)](https://github.com/<username>/ai-cachekit/actions)
+[![Tests](https://github.com/EDLadder/ai-cachekit/actions/workflows/python-tests.yml/badge.svg)](https://github.com/EDLadder/ai-cachekit/actions)
 [![PyPI version](https://badge.fury.io/py/ai-cachekit.svg)](https://badge.fury.io/py/ai-cachekit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
