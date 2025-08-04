@@ -1,6 +1,6 @@
 # AI CacheKit
 
-[![Tests](https://github.com/<username>/ai-cachekit/actions/workflows/python-tests.yml/badge.svg)](https://github.com/<username>/ai-cachekit/actions)
+[![Tests](https://github.com/EDLadder/ai-cachekit/actions/workflows/python-tests.yml/badge.svg)](https://github.com/<username>/ai-cachekit/actions)
 [![PyPI version](https://badge.fury.io/py/ai-cachekit.svg)](https://badge.fury.io/py/ai-cachekit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -21,7 +21,7 @@ Reduce costs and improve performance by storing API responses locally with hash-
 
 **From GitHub (development version):**
 ```bash
-pip install git+https://github.com/<username>/ai-cachekit.git
+pip install git+https://github.com/EDLadder/ai-cachekit.git
 ```
 
 **From PyPI (after release):**
@@ -60,7 +60,7 @@ print(result)
 
 Clone repo and install dev dependencies:
 ```bash
-git clone https://github.com/<username>/ai-cachekit.git
+git clone https://github.com/EDLadder/ai-cachekit.git
 cd ai-cachekit
 pip install -r requirements.txt
 pytest
