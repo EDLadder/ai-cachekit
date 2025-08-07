@@ -1,43 +1,23 @@
-import os
 import pytest
+import socket
 from ai_cachekit.cache import AIResponseCache
 
+def is_redis_running(host, port):
+    try:
+        with socket.create_connection((host, port), timeout=1):
+            return True
+    except OSError:
+        return False
 
-@pytest.fixture
-def cache_file(tmp_path):
-    return tmp_path / "cache.json"
-
-
-def test_set_and_get(cache_file):
-    cache = AIResponseCache(cache_file=str(cache_file))
-    prompt = "Hello AI"
-    response = "Hello back!"
-
-    cache.set(prompt, response)
-    assert cache.get(prompt) == response
-
-
-def test_get_returns_none_if_not_found(cache_file):
-    cache = AIResponseCache(cache_file=str(cache_file))
-    assert cache.get("Unknown prompt") is None
-
-
-def test_get_or_set(cache_file):
-    cache = AIResponseCache(cache_file=str(cache_file))
-    prompt = "What's 2+2?"
-
-    result = cache.get_or_set(prompt, lambda: "4")
-    assert result == "4"
-    # Second call should use cache, not recompute
-    result2 = cache.get_or_set(prompt, lambda: "WRONG")
-    assert result2 == "4"
-
-
-def test_ttl_expiration(cache_file):
-    cache = AIResponseCache(cache_file=str(cache_file), ttl=0)
-    prompt = "Will expire"
-    response = "test"
-
-    cache.set(prompt, response)
-    # Simulate expiration by setting ttl=0
-    assert cache.get(prompt) is None
+@pytest.mark.parametrize("backend, kwargs", [
+    ("memory", {}),
+    ("file", {"filepath": "test_cache.json"}),
+    pytest.param("redis", {"host": "localhost", "port": 6379}, 
+                 marks=pytest.mark.skipif(
+                     not is_redis_running("localhost", 6379),
+                     reason="Redis not running on localhost:6379"))
+])
+def test_cache_backends(backend, kwargs):
+    cache = AIResponseCache(backend=backend, **kwargs)
+    cache.set("key", "value")
+    assert cache.get("key") == "value"

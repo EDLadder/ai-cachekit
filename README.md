@@ -10,7 +10,7 @@ Reduce costs and improve performance by storing API responses locally with hash-
 ---
 
 ## Features
-- 🔹 Simple API: `get`, `set`, `get_or_set`
+- 🔹 Simple API: `get`, `set`
 - 🔹 Local JSON storage (no external DB required)
 - 🔹 Optional TTL (time-to-live) for cache expiration
 - 🔹 Perfect for OpenAI, Anthropic, Ollama, etc.
@@ -34,17 +34,27 @@ pip install ai-cachekit
 ## Usage
 
 ```python
-from ai_cachekit.cache import AIResponseCache
+from ai_cachekit import AIResponseCache
 
-cache = AIResponseCache(ttl=3600)  # Cache for 1 hour
+cache = AIResponseCache(backend="memory")
+cache.set("question", "answer")
+print(cache.get("question"))
+```
 
-def call_ai():
-    # Example: call your AI API here
-    return "Dragon story result"
+### File-Based Cache (JSON)
 
-prompt = "Write a short story about a dragon"
-result = cache.get_or_set(prompt, call_ai)
-print(result)
+```python
+cache = AIResponseCache(backend="file", filepath="my_cache.json")
+cache.set("key", "value")
+print(cache.get("key"))
+```
+
+### Redis Cache
+
+```python
+cache = AIResponseCache(backend="redis", host="localhost", port=6379)
+cache.set("key", "value")
+print(cache.get("key"))
 ```
 
 ---
@@ -69,7 +79,7 @@ pytest
 ---
 
 ## Plans
-- [ ] Support for Redis and SQLite backends.
+- [x] Support for Redis and SQLite backends.
 - [ ] CLI tool for managing cache.
 - [ ] Built-in stats: hit rate, saved cost estimation.
 - [ ] Encryption for cached data.
