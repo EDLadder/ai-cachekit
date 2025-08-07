@@ -68,5 +68,13 @@ pytest
 
 ---
 
+## Plans
+- [ ] Support for Redis and SQLite backends.
+- [ ] CLI tool for managing cache.
+- [ ] Built-in stats: hit rate, saved cost estimation.
+- [ ] Encryption for cached data.
+
+---
+
 ## License
 MIT License – free to use and modify.
